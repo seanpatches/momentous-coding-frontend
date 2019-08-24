@@ -10,5 +10,5 @@ angular.module('momentousApp.users', ['ngRoute'])
 }])
 
 .controller('UsersCtrl', [function() {
-
+  
 }]);

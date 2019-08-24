@@ -6,9 +6,12 @@ angular.module('momentousApp', [
   'momentousApp.posts',
   'momentousApp.version'
 ]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-  console.log($locationProvider)
-  $locationProvider.hashPrefix('!');
-
+config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
+  
   $routeProvider.otherwise({redirectTo: '/users'});
+  
+  $locationProvider.html5Mode({
+    enabled: true,
+    requireBase: false
+  });
 }]);
