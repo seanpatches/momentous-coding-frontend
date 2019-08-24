@@ -7,8 +7,16 @@ angular.module('momentousApp.users', ['ngRoute'])
     templateUrl: 'users/users.html',
     controller: 'UsersCtrl'
   });
+
 }])
 
-.controller('UsersCtrl', [function() {
-  
-}]);
+.controller('UsersCtrl', function($scope, $http) {
+  $scope.formData = {};
+  $http.get('http://localhost:8888/users')
+      .then(function(data) {
+          $scope.users = data;
+          console.log(data);
+      }, function(error) {
+          console.log('Error: ' + data);
+      });
+});
