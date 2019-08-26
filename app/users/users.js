@@ -15,8 +15,8 @@ angular.module('momentousApp.users', ['ngRoute'])
   $http.get('http://localhost:8888/users')
       .then(function(data) {
           $scope.users = data;
-          console.log(data);
       }, function(error) {
           console.log('Error: ' + data);
       });
+  window.MY_SCOPE = $scope;
 });
