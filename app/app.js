@@ -4,7 +4,8 @@ angular.module('momentousApp', [
   'ngRoute',
   'momentousApp.users',
   'momentousApp.posts',
-  'momentousApp.version'
+  'momentousApp.version',
+  'momentousApp.signup'
 ]).
 config(['$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
   

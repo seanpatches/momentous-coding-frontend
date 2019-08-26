@@ -1,16 +1,15 @@
 'use strict';
+const userModule = angular.module('momentousApp.users', ['ngRoute']);
 
-angular.module('momentousApp.users', ['ngRoute'])
+userModule.config(['$routeProvider', function($routeProvider) {
+  $routeProvider
+    .when('/users', {
+      templateUrl: 'users/users.html',
+      controller: 'UsersCtrl'
+    })
+}]);
 
-.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/users', {
-    templateUrl: 'users/users.html',
-    controller: 'UsersCtrl'
-  });
-
-}])
-
-.controller('UsersCtrl', function($scope, $http) {
+userModule.controller('UsersCtrl', function($scope, $http) {
   $scope.formData = {};
   $http.get('http://localhost:8888/users')
       .then(function(data) {
@@ -18,5 +17,5 @@ angular.module('momentousApp.users', ['ngRoute'])
       }, function(error) {
           console.log('Error: ' + data);
       });
-  window.MY_SCOPE = $scope;
-});
+      window.MY_SCOPE = $scope;
+    });
