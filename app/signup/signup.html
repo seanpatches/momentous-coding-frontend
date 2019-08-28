@@ -1,8 +1,9 @@
 <div ng-app="momentousApp" ng-controller="SignupCtrl">
   <form ng-submit='signupSubmit()'>
-    <input type="text" ng-model="formData.name" placeholder="name">
     <input type="text" ng-model="formData.email" placeholder="email">
-    <input type="text" ng-model="formData.bio" placeholder="bio">
+    <input type="text" ng-model="formData.password" placeholder="username">
+    <input type="text" ng-model="formData.username" placeholder="name">
     <button>Submit</button>
   </form>
+  <button>Log In!</button>
 </div>
