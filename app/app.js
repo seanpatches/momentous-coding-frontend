@@ -32,6 +32,12 @@
         controller: 'CallbackController',
         templateUrl: 'app/callback/callback.html',
         controllerAs: 'vm'
+      })
+      .state('allPosts', {
+        url: '/posts',
+        controller: 'AllPostsController',
+        templateUrl: 'app/posts/allPosts.html',
+        controllerAs: 'vm'
       });
 
     angularAuth0Provider.init({
