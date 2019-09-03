@@ -38,6 +38,12 @@
         controller: 'AllPostsController',
         templateUrl: 'app/posts/allPosts.html',
         controllerAs: 'vm'
+      })
+      .state('allUsers', {
+        url: '/users',
+        controller: 'AllUsersController',
+        templateUrl: 'app/users/allUsers.html',
+        controllerAs: 'vm'
       });
 
     angularAuth0Provider.init({

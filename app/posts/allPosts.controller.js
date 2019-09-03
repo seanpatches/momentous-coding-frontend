@@ -6,8 +6,13 @@
     .module('app')
     .controller('AllPostsController', allPostsController);
 
-  function allPostsController() {
-    
+  allPostsController.$inject = ['authService'];
+
+  function allPostsController(authService) {
+
+    var vm = this;
+    vm.auth = authService;
+
   }
 
 })();
