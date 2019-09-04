@@ -30,6 +30,8 @@
       angularAuth0.parseHash(function(err, authResult) {
         if (authResult && authResult.accessToken && authResult.idToken) {
           localLogin(authResult);
+          console.log(authResult);
+          localStorage.setItem('userId', authResult.idTokenPayload.sub);
           $state.go('home');
         } else if (err) {
           $timeout(function() {
