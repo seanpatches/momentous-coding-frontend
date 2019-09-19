@@ -26,11 +26,20 @@
       angularAuth0.authorize();
     }
 
+    function getUserInfo(authResult) {
+      angularAuth0.client.userInfo(authResult.accessToken, (err, profile) => {
+        if(profile) {
+          console.log(profile);
+        }
+      })
+    }
+
     function handleAuthentication() {
       angularAuth0.parseHash(function(err, authResult) {
         if (authResult && authResult.accessToken && authResult.idToken) {
           localLogin(authResult);
           console.log(authResult);
+          getUserInfo(authResult);
           localStorage.setItem('userId', authResult.idTokenPayload.sub);
           $state.go('home');
         } else if (err) {
@@ -42,6 +51,7 @@
         }
       });
     }
+
 
     function localLogin(authResult) {
       // Set isLoggedIn flag in localStorage
