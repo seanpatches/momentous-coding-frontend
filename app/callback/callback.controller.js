@@ -15,11 +15,10 @@
             if(currentUserId === user.authId){
               localStorage.setItem('user', user);
               return;
+            } else {
+              //use post below to save user if not in DB
             }
           })
-        })
-        .then(userList => {
-          //if user doesn't exist, post one
         })
         , error => {
             console.log('Error: ' + data);
