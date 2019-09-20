@@ -6,9 +6,9 @@
     .module('app')
     .service('authService', authService);
 
-  authService.$inject = ['$state', 'angularAuth0', '$timeout'];
+  authService.$inject = ['$state', 'angularAuth0', '$timeout', '$http'];
 
-  function authService($state, angularAuth0, $timeout) {
+  function authService($state, angularAuth0, $timeout, $http) {
 
     var accessToken;
     var idToken;
@@ -29,12 +29,34 @@
     function getUserInfo(authResult) {
       angularAuth0.client.userInfo(authResult.accessToken, (err, profile) => {
         if(profile) {
-          localStorage.setItem('user', JSON.stringify({
-            authId: profile.sub,
+          const authUser = {
+            name: profile.nickname,
             email: profile.email,
-            username: profile.nickname,
+            authId: profile.sub,
             userImage: profile.picture
-          }));
+          };
+
+          $http.get('http://localhost:8888/users')
+          //trying to figure out how to get the post to fire if loop find a user
+          //try finding by a single user, bypassing loop, you'll need to write a 
+          .then(userList => {
+            console.log(userList)
+            userList.data.forEach(user=> {
+              if(authUser.authId == user.authId){
+                console.log('Found a user already made in database')
+                return
+              };
+            })
+            .then($http.post('http://localhost:8888/users', authUser)
+                .then(function(res){
+                  console.log(res)
+                }), function(error) {
+                  console.log('Error' + error)
+                })
+            , error => {
+              console.log('Error: ' + error);
+            };
+          })
         }
       })
     }
@@ -42,8 +64,8 @@
     function handleAuthentication() {
       angularAuth0.parseHash(function(err, authResult) {
         if (authResult && authResult.accessToken && authResult.idToken) {
-          localLogin(authResult);
           getUserInfo(authResult);
+          localLogin(authResult);
           localStorage.setItem('userId', authResult.idTokenPayload.sub);
           $state.go('home');
         } else if (err) {
