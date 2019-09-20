@@ -51,7 +51,7 @@
       domain: AUTH0_DOMAIN,
       responseType: 'token id_token',
       redirectUri: AUTH0_CALLBACK_URL,
-      scope: 'openid email'
+      scope: 'openid email profile'
     });
 
     $urlRouterProvider.otherwise('/');

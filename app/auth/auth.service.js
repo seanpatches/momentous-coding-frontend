@@ -29,7 +29,12 @@
     function getUserInfo(authResult) {
       angularAuth0.client.userInfo(authResult.accessToken, (err, profile) => {
         if(profile) {
-          localStorage.setItem('userProfile', profile);
+          localStorage.setItem('user', JSON.stringify({
+            authId: profile.sub,
+            email: profile.email,
+            username: profile.nickname,
+            userImage: profile.picture
+          }));
         }
       })
     }
