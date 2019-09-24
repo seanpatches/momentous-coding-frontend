@@ -32,30 +32,37 @@
           const authUser = {
             name: profile.nickname,
             email: profile.email,
-            authId: profile.sub,
+            authid: profile.sub,
             userImage: profile.picture
           };
-
+          
+          let userFound = false;
           $http.get('http://localhost:8888/users')
-          //trying to figure out how to get the post to fire if loop find a user
-          //try finding by a single user, bypassing loop, you'll need to write a 
           .then(userList => {
-            console.log(userList)
+            console.log('entering userList')
             userList.data.forEach(user=> {
-              if(authUser.authId == user.authId){
+              if(authUser.authid === user.authid){
                 console.log('Found a user already made in database')
-                return
+                userFound = true;
+                return;
               };
             })
-            .then($http.post('http://localhost:8888/users', authUser)
-                .then(function(res){
-                  console.log(res)
-                }), function(error) {
-                  console.log('Error' + error)
-                })
             , error => {
               console.log('Error: ' + error);
             };
+          })
+          .then(() => {
+            console.log(userFound)
+            if(!userFound) {
+              console.log('User not found, attempting to post')
+              $http.post('http://localhost:8888/users', authUser)
+                .then(function(res){
+                  console.log(res);
+                  console.log(authUser)
+                }), function(error){
+                  console.log('Error: ' + error)
+                };
+            }
           })
         }
       })
